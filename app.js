@@ -26,11 +26,11 @@ app.loadConfig = (path = "./config/config") => {
     delete require.cache[require.resolve(path)];
     var oldConfig = app.config;
     app.config = require(path);
-    app.colours = [... new Set((app.config.colours || ["#FFFFFF", "#E4E4E4", "#888888", "#222222", "#FFA7D1", "#E50000", "#E59500", "#A06A42", "#E5D900", "#94E044", "#02BE01", "#00D3DD", "#0083C7", "#0000EA", "#CF6EE4", "#820080"]).map((c) => c.toUpperCase()))];
-    if(!app.config.siteName) app.config.siteName = "Place";
+    app.colours = [... new Set((app.config.colours || ["#FFFFFF", "#E4E4E4","#E4E4E4", "#888888", "#222222", "#FFA7D1", "#E50000", "#E59500", "#A06A42", "#E5D900", "#94E044", "#02BE01", "#00D3DD", "#0083C7", "#0000EA", "#CF6EE4", "#820080"]).map((c) => c.toUpperCase()))];
+    if(!app.config.siteName) app.config.siteName = "Rekt";
     if(!app.config.enableChangelogs) app.config.enableChangelogs = true;
     if(!app.config.boardSize) app.config.boardSize = 1600; // default to 1600 if not specified in config
-    if(oldConfig && (oldConfig.secret != app.config.secret || oldConfig.database != app.config.database || oldConfig.boardSize != app.config.boardSize)) {
+    if(oldConfig && (oldConfig.secret !== app.config.secret || oldConfig.database !== app.config.database || oldConfig.boardSize !== app.config.boardSize)) {
         app.logger.log("Configuration", "We are stopping the Place server because the database URL, secret, and/or board image size has been changed, which will require restarting the entire server.");
         process.exit(0);
     }
@@ -104,15 +104,16 @@ app.recreateServer();
 
 async function connectToDb() {
     try {
-        await mongoose.connect(app.config.database, { useNewUrlParser: true, 
-        useUnifiedTopology: true,
-        family: 4});
-      } catch (error) {
+
+        await mongoose.connect(app.config.database, { useNewUrlParser: true,
+            useUnifiedTopology: true,
+            family: 4});
+    } catch (error) {
         console.log(error);
-      }
+    }
 
     if (mongoose.connection.readyState === 1) {
-     console.log("Successfully connected to database");
+        console.log("Successfully connected to database");
     }
 }
 connectToDb().then(function(data) {
@@ -131,7 +132,7 @@ const handlePendingDeletions = () => {
 
 mongoose.connection.on('error', err => {
     app.logger.log('DB Connection', err);
-  });
+});
 
 mongoose.connection.once('connected', () => {
     handlePendingDeletions();
@@ -172,16 +173,16 @@ readline.on('line', i => {
     try {
         var output = eval(i)
         output instanceof Promise
-        ? output.then(a => {
-            console.log('Promise Resolved')
-            console.log(util.inspect(a, {depth: 0}))
-        }).catch(e => {
-            console.log('Promise Rejected')
-            console.log(e.stack)
-        })
-        : output instanceof Object
-            ? console.log(util.inspect(output, {depth: 0}))
-            : console.log(output)
+            ? output.then(a => {
+                console.log('Promise Resolved')
+                console.log(util.inspect(a, {depth: 0}))
+            }).catch(e => {
+                console.log('Promise Rejected')
+                console.log(e.stack)
+            })
+            : output instanceof Object
+                ? console.log(util.inspect(output, {depth: 0}))
+                : console.log(output)
     } catch (err) {
         console.log(err.stack)
     }
