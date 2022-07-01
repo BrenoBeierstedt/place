@@ -1,11 +1,11 @@
 FROM node:latest
-LABEL maintainer="applebetas@dynastic.co"
+LABEL maintainer="breno@outerbone.studio"
 
 # Create app directory
 WORKDIR /usr/src/app
 
 # Copy over package.json (and package-lock.json, if applicable)
-COPY package*.json  ./
+COPY package*.json ./
 
 # Install app dependencies
 RUN npm install

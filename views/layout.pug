@@ -92,7 +92,7 @@ html(lang="en")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href="https://www.dynastic.co", style="margin-right: -5px")
+          a.navbar-brand(href="https://facesofrekt.xyz", style="margin-right: -5px")
             img(src="https://assets.dynastic.co/brand/img/icon-46.png", height="20")
           a.navbar-brand(href="/")
             | #{config.siteName}
@@ -109,12 +109,9 @@ html(lang="en")
                 .
                   Community #[span.caret]
               ul.dropdown-menu
-                +renderNavItem("Official Subreddit", "https://www.reddit.com/r/place20", "reddit-alien")
-                +renderNavItem("Chat on Discord", "https://discord.gg/CgC8FTg", "comments")
-                +renderNavItem("Timelapses", "https://timelapse.canvas.place", "clock-o")
-                +renderNavItem("Merch", "https://merch.canvas.place", "shopping-cart")
-                +renderNavItem("Source Code", "https://www.github.com/dynastic/place", "github")
-            //- +renderNavItem("Donate", "https://www.paypal.me/dynastic", "money")
+                +renderNavItem("Official Twitter", "https://twitter.com/facesofrektNFT", "twitter")
+                +renderNavItem("Chat on Discord", "https://discord.gg/rektcity", "comments")
+                +renderNavItem("Opensea", "https://opensea.io/collection/facesofrekt", "clock-o")
             if user && userMod
               +renderNavItem(userAdmin ? "Admin" : "Moderator", "/admin", "gavel")
             +getViewExtensions("nav_right")
@@ -134,7 +131,7 @@ html(lang="en")
                   +renderNavItem("Sign Out", `/signout?redirectURL=${redirectURLPart}`, "sign-out")
             else
               li#nav-auth-link
-                a.btn.btn-sm.btn-nav-auth-link(href=(path == "/" ? "javascript:void(0)" : `/#signup&redirectURL=${redirectURLPart}`), data-place-trigger="openAuthDialog") Get Started
+                a.btn.btn-sm.btn-nav-auth-link(href=(path == "/" ? "javascript:void(0)" : `/#signup&redirectURL=${redirectURLPart}`), data-place-trigger="openAuthDialog") Connect Wallet
             if needsHelp
               +renderNavItem("Help", "javascript:void(0)", "question-circle", false)
             +getViewExtensions("nav_user_right")

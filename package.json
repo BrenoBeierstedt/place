@@ -8,24 +8,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "node_modules/eslint/bin/eslint.js ."
   },
-  "homepage": "https://canvas.place/",
-  "repository": "github:dynastic/place",
-  "author": "Dynastic Development",
+  "homepage": "https://place.outerbone.studio/",
+  "author": "Outerbone Studio",
   "contributors": [
     {
-      "name": "AppleBetas",
-      "email": "applebetas@dynastic.co",
-      "url": "https://applebetas.co"
-    },
-    {
-      "name": "nullpixel",
-      "email": "jamie@dynastic.co",
-      "url": "https://nullpixel.uk"
-    },
-    {
-      "name": "Eric Rabil",
-      "email": "eric@dynastic.co",
-      "url": "https://ericrabil.com"
+      "name": "Outerbone Studio",
+      "email": "contact@outerbone.studio",
+      "url": "https://outerbone.studio"
     }
   ],
   "license": "AGPLv3",
