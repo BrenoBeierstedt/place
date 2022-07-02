@@ -1271,9 +1271,9 @@ body .button-ctn, body #popout-container {
     letter-spacing: 0.5px;
 }
 
-#warps-ctn .menu-section-content-ctn, #templates-ctn .menu-section-content-ctn {
+#warps-ctn .menu-section-content-ctn, #templates-ctn .menu-section-content-ctn, #sprays-ctn .menu-section-content-ctn {
     position: relative;
-    padding-top: 58px;
+    padding-top: 100px;
 }
 
 #templates-ctn .menu-section-content-ctn {
