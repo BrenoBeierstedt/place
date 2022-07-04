@@ -1273,7 +1273,7 @@ body .button-ctn, body #popout-container {
 
 #warps-ctn .menu-section-content-ctn, #templates-ctn .menu-section-content-ctn, #sprays-ctn .menu-section-content-ctn {
     position: relative;
-    padding-top: 100px;
+    padding-top: 80px;
 }
 
 #templates-ctn .menu-section-content-ctn {
@@ -1434,6 +1434,165 @@ body .button-ctn, body #popout-container {
 }
 
 .warp-info .warp-coordinates {
+    font-size: 11px;
+    color: #777;
+}
+
+/* Spray CSS*/
+
+
+.spray-info {
+    background: rgba(255, 255, 255, 0.4);
+    display: inline-block;
+    padding: 10px;
+    border-radius: 4px;
+    margin-right: 3px;
+    height: 58px;
+    min-width: 58px;
+    max-width: 150px;
+    position: relative;
+    transition: 100ms transform ease-in-out;
+    cursor: pointer;
+}
+
+.spray-info.template {
+    height: 74px;
+    width: 74px;
+}
+
+.spray-info.explanation {
+    background: none;
+    pointer-events: none;
+    max-width: none;
+    min-width: none;
+    width: auto;
+}
+
+.spray-info > .spray-delete, .spray-info > .spray-jump-to, .spray-info > .spray-visibility, .spray-info > .spray-scale {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 4px;
+    background: #F44336;
+    text-align: center;
+    color: #fff;
+    font-size: 10px;
+    padding: 5px;
+    opacity: 0;
+    transition: opacity 50ms ease-in-out;
+    z-index: 2;
+}
+
+.spray-info > .spray-delete:hover {
+    background: #D32F2F;
+}
+
+.spray-info > .spray-jump-to {
+    top: initial;
+    bottom: 0;
+    border-radius: 0;
+    border-top-left-radius: 6px;
+    border-bottom-right-radius: 4px;
+    background: #2196F3;
+}
+
+.spray-info > .spray-jump-to:hover {
+    background: #1976D2;
+}
+
+.spray-info > .spray-visibility {
+    right: initial;
+    left: 0;
+    border-radius: 0;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 4px;
+    background: #8BC34A;
+}
+
+.spray-info > .spray-visibility:hover {
+    background: #689F38;
+}
+
+.spray-info > .spray-scale {
+    right: initial;
+    left: 0;
+    bottom: initial;
+    top: 0;
+    border-radius: 0;
+    border-bottom-right-radius: 6px;
+    border-top-left-radius: 4px;
+    background: #009688;
+}
+
+.spray-info > .spray-scale:hover {
+    background: #00796B;
+}
+
+.spray-info:hover .spray-delete, .spray-info:hover > .spray-jump-to, .spray-info:hover > .spray-visibility, .spray-info:hover > .spray-scale {
+    opacity: 1;
+}
+
+.spray-info > .template-img {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.spray-info:active {
+    transform: scale(0.95);
+}
+
+.spray-info.add {
+    text-align: center;
+    padding: 21px 10px;
+}
+
+.spray-info.template.add {
+    padding: 30px 10px;
+}
+
+.spray-info:last-child {
+    margin-right: 0;
+}
+
+.spray-info span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.spray-info .spray-title {
+    /*font-weight: 700;*/
+    font-size: 12px;
+    display: block;
+    margin-top: 40px;
+}
+
+.spray-info .spray-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%
+}
+
+.spray-info.add .spray-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 20px;
+    transform: translate(-50%, -50%);
+    padding-top: 2px;
+    color: #666;
+}
+
+.spray-info .spray-coordinates {
     font-size: 11px;
     color: #777;
 }

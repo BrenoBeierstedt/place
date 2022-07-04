@@ -82,7 +82,8 @@ function APIRouter(app) {
     });
 
     const signInRatelimit = new Ratelimit(require("../util/RatelimitStore")("SignIn"), {
-        freeRetries: 5, // 5 sign in attempts per 15-60 minutes
+        //todo change back to five on production
+        freeRetries: 1000, // 5 sign in attempts per 15-60 minutes
         attachResetToRequest: false,
         refreshTimeoutOnRequest: false,
         minWait: 15 * 60 * 1000, // 15 minutes,
@@ -201,12 +202,19 @@ function APIRouter(app) {
 
     router.get("/user/:username", AccountPageController.getAPIAccount);
 
+    // Spray can Controller
+
+    router.get("/spray_cans", AccountPageController.getSprayCans);
+
     router.get("/changelog/latest", ChangelogController.getLatestChangelog);
     router.route("/changelog/missed").get([requireUser, ChangelogController.getMissedChangelogs]).post([requireUser, ChangelogController.postMissedChangelogs]).delete([requireUser, ChangelogController.deleteMissedChangelogs]);
     router.get("/changelog/:version", ChangelogController.getChangelog);
 
     router.route("/warps").get([requireUser, WarpController.getWarps]).post([requireUser, WarpController.postWarp]);
     router.route("/warps/:id").get([requireUser, WarpController.getWarp]).delete([requireUser, WarpController.deleteWarp]);
+
+
+
 
     // Admin APIs
 
