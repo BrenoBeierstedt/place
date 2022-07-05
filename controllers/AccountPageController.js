@@ -44,7 +44,7 @@ exports.getSprayCans = (req, res, next) => {
         {"name":"Spray3", "palette":["#e72222", "#e1b010","#111111", "#d96eec", "#222222"], "img":"https://cdn.discordapp.com/attachments/935914562140639323/992394749610831963/can-nobg2.png"}
     ]
     User.find({userID: req.user.id}).then(() => {
-        res.json({success: true, spray: "sprayArr"});
+        res.json({success: true, spray: sprayArr});
 
     }).catch((err) => {
         req.place.logger.error("Couldn't get SprayCans for user: " + err);

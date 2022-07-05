@@ -185,6 +185,8 @@ var place = {
         this.notificationHandler.setup();
 
         this.colourPaletteElement = colourPaletteElement;
+        this.loadSprays();
+
         this.setupColours();
         this.placingOverlay = $(this.colourPaletteElement).find("#placing-modal");
         this.placeTimer = $(this.colourPaletteElement).find("#place-timer");
@@ -228,6 +230,7 @@ var place = {
         };
 
 
+
         window.onresize = () => this.handleResize();
         window.onhashchange = () => this.handleHashChange();
         $(window).on("wheel mousewheel", (e) => this.mousewheelMoved(e));
@@ -246,7 +249,7 @@ var place = {
         $(this.userCountElement).show();
 
         this.getCanvasImage();
-        
+
         this.determineFeatureAvailability();
 
         this.initializeSocketConnection();
@@ -292,7 +295,6 @@ var place = {
         $("<span>").attr("aria-hidden", "true").html("&times;").appendTo(this.dismissBtn);
 
         this.loadWarps();
-        this.loadSprays();
         this.layoutTemplates();
 
     },
@@ -307,7 +309,7 @@ var place = {
     determineFeatureAvailability: function() {
         placeAjax.get("/api/feature-availability", null, null).then((data) => {
             this.hasTriedToFetchAvailability = true;
-            this.colours = data.availability.colours;
+            this.colours = this.sprays[0].palette;
             this.pixelFlags = data.availability.flags;
             this.canPlaceCustomColours = data.availability.user && data.availability.user.canPlaceCustomColours;
             this.templatesEnabled = data.availability.user && data.availability.user.hasTemplatesExperiment
@@ -409,14 +411,14 @@ var place = {
                 app.hashHandler.modifyHash(coord);
             }
         })
-        .on("tap", (event) => {
-            if(event.interaction.downEvent.button == 2) return event.preventDefault();
-            if(!this.zooming.zooming) {
-                var cursor = app.getCanvasCursorPosition(event.pageX, event.pageY);
-                app.canvasClicked(cursor.x, cursor.y);
-            }
-            event.preventDefault();
-        }).on("doubletap", (event) => {
+            .on("tap", (event) => {
+                if(event.interaction.downEvent.button == 2) return event.preventDefault();
+                if(!this.zooming.zooming) {
+                    var cursor = app.getCanvasCursorPosition(event.pageX, event.pageY);
+                    app.canvasClicked(cursor.x, cursor.y);
+                }
+                event.preventDefault();
+            }).on("doubletap", (event) => {
             if(app.zooming.zoomedIn && this.selectedColour === null) {
                 app.zoomFinished();
                 app.shouldShowPopover = false;
@@ -577,7 +579,9 @@ var place = {
                 });
             }
         } else {
-            overlay.text(this.hasTriedToFetchAvailability ? "An error occurred while loading colours. Retrying…" : "Loading…").show();
+            // overlay.hide();
+
+            overlay.text(this.hasTriedToFetchAvailability ? "Select a can to start painting!" : "Loading…").show();
         }
     },
 
@@ -1017,14 +1021,14 @@ var place = {
     changeSelectorVisibility: function(visible) {
         if(this.selectedColour == null) return;
         if(visible) {
-          var elem = this.colourPaletteOptionElements[this.selectedColour];
-          $(this.handElement).show();
-          $(this.zoomController).addClass("selected");
-          $(this.gridHint).show();
+            var elem = this.colourPaletteOptionElements[this.selectedColour];
+            $(this.handElement).show();
+            $(this.zoomController).addClass("selected");
+            $(this.gridHint).show();
         } else {
-          $(this.handElement).hide();
-          $(this.zoomController).removeClass("selected");
-          $(this.gridHint).hide();
+            $(this.handElement).hide();
+            $(this.zoomController).removeClass("selected");
+            $(this.gridHint).hide();
         }
     },
 
@@ -1220,7 +1224,6 @@ var place = {
 
     layoutWarps: function() {
         var app = this;
-        console.log(this)
         function getWarpInfo(title = null, detail = null, clickHandler = null, deleteClickHandler = null, add = false) {
             var warpInfo = $("<div>").addClass("warp-info");
             if(title) $("<span>").addClass("warp-title").text(title).appendTo(warpInfo);
@@ -1285,35 +1288,26 @@ var place = {
 
     loadSprays: function() {
         if(!this.isSignedIn()) return;
-        this.sprays = [
-            {"name":"Spray1asdasdasdasdsd", "palette":["#FFFFFF", "#E4E4E4","#E4E4E4", "#888888", "#222222"], "img":"https://cdn.discordapp.com/attachments/935914562140639323/992394749610831963/can-nobg2.png"},
-            {"name":"Spray2", "palette":["#e72222", "#8bc033","#1a20a4", "#632c6c", "#222222"], "img":"https://cdn.discordapp.com/attachments/935914562140639323/992394749610831963/can-nobg2.png"},
-            {"name":"Spray3", "palette":["#e72222", "#e1b010","#111111", "#d96eec", "#222222"], "img":"https://cdn.discordapp.com/attachments/935914562140639323/992394749610831963/can-nobg2.png"}
-        ]
-        this.layoutSprays();
-        // placeAjax.get("/api/spray_cans", null, null).then((response) => {
-        //     this.sprays = response;
-        //     console.log(response)
-        //
-        //     this.layoutSprays();
-        // }).catch((err) => {
-        //     console.error("AAAAAAAAAAAAAACouldn't load sprays: " + err);
-        //     this.sprays = null;
-        //     this.layoutSprays();
-        // });
+        placeAjax.get("/api/spray_cans", null, null).then((response) => {
+            this.sprays = response.spray;
+            console.log(response)
+
+            this.layoutSprays();
+        }).catch((err) => {
+            console.error("Couldn't load sprays: " + err);
+            this.sprays = null;
+            this.layoutSprays();
+        });
     },
 
     layoutSprays: function() {
         var app = this;
         function getSprayInfo(title = null, detail = null, clickHandler = null, deleteClickHandler = null, add = false) {
+
+            // var sprayDiv = $("<div>").addClass("spray-popup-container");
             var sprayInfo = $("<div>").addClass("spray-info");
             if(title) $("<span>").addClass("spray-title").text(title).appendTo(sprayInfo);
             if(detail) $("<span>").addClass("spray-coordinates").text(detail).appendTo(sprayInfo);
-            // if(add) sprayInfo.addClass("add").attr("title", "Create a spray at the current position").append("<span class=\"spray-title\"><i class=\"fa fa-plus\"></i></span>");
-            // else {
-            //     if(typeof deleteClickHandler === "function") $("<div>").addClass("spray-delete").attr("title", `Delete spray '${title}'`).html("<i class=\"fa fa-minus fa-fw\"></i>").click(deleteClickHandler.bind(app, sprayInfo)).appendTo(sprayInfo);
-            //     sprayInfo.attr("title", `Spray to '${title}'`)
-            // }
             if(clickHandler) sprayInfo.click(clickHandler.bind(app, sprayInfo));
             return sprayInfo;
         }
@@ -1325,18 +1319,25 @@ var place = {
         if(this.sprays.length > 0) {
             this.sprays.forEach(
                 (spray) => {
-                    // var templateCtn = $("<div>").addClass("warp-info template").attr("data-template-id", index).attr("title", "Jump to the position of this template").appendTo(sprayInfoContainer);
-                    // $("<div>").addClass("template-img").css("background-image", `url(${spray.img})`).appendTo(templateCtn);
-
                     var sprayCtn =    getSprayInfo().attr("data-spray-id", spray.name).appendTo(sprayInfoContainer);
                     sprayCtn.click(()=>{ this.setupColours(spray.palette)});
+
                     $("<div>").addClass("template-img").css("background-image", `url(${spray.img})`).appendTo(sprayCtn);
                     $("<div>").addClass("spray-title").text(spray.name).appendTo(sprayCtn);
+
+                    //todo add hover pop out someday
+                   // var dd = $("<div>").addClass("description").appendTo(sprayCtn);
+                   //  $("<h2>").text('test').appendTo(dd);
+                   //  $(".spray-info").mouseover(function() {
+                   //      $(this).children(".description").show();
+                   //  }).mouseout(function() {
+                   //      $(this).children(".description").hide();
+                   //  });
 
 
                 }
 
-        );
+            );
         } else {
             sprayInfoContainer.addClass("empty");
             var explanation = $("<div>").addClass("spray-info explanation").appendTo(sprayInfoContainer);
@@ -1354,7 +1355,7 @@ var place = {
     saveTemplates: function() {
         localStorage.setItem("templates", JSON.stringify(this.templates || []));
     },
-    
+
     layoutTemplates: function() {
         if(!this.templatesEnabled) return $("#templates-ctn").text("Coming Soon");
         if(!this.templates) this.loadTemplates();
@@ -1383,7 +1384,7 @@ var place = {
             $("<span>").addClass("warp-coordinates").text("Overlay an image on the canvas to use as a guide for your art.").appendTo(explanation);
         }
     },
-    
+
     addTemplateClicked: function() {
         var app = this;
         $("<input>").attr("type", "file").attr("accept", ".png,.jpg,.gif,.jpeg,.webm,.apng,.svg").hide().on("change", function() {
@@ -1395,15 +1396,15 @@ var place = {
                 app.templates.push({pos: app.getCoordinates(), url: dataURI, opacity: 0.5, scale: 1});
                 app.layoutTemplates();
                 app.saveTemplates();
-           };
-           reader.onerror = (event) => {
-               console.error("Error trying to read template image.", event);
-               alert("An error occurred while attempting to read your template image.")
-           };
-           reader.readAsDataURL(this.files[0]);
+            };
+            reader.onerror = (event) => {
+                console.error("Error trying to read template image.", event);
+                alert("An error occurred while attempting to read your template image.")
+            };
+            reader.readAsDataURL(this.files[0]);
         }).appendTo($("body")).click();
     },
-    
+
     deleteTemplateClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();
@@ -1414,7 +1415,7 @@ var place = {
         this.layoutTemplates();
         this.saveTemplates();
     },
-    
+
     moveTemplateHereClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();
@@ -1424,7 +1425,7 @@ var place = {
         this.layoutTemplates();
         this.saveTemplates();
     },
-    
+
     changeOpacityOfTemplateClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();
@@ -1437,7 +1438,7 @@ var place = {
         this.layoutTemplates();
         this.saveTemplates();
     },
-    
+
     changeScaleOfTemplateClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();
@@ -1449,7 +1450,7 @@ var place = {
         this.layoutTemplates();
         this.saveTemplates();
     },
-    
+
     moveToTemplateClicked: function(elem, event) {
         event.preventDefault();
         event.stopPropagation();

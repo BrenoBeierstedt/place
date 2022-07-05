@@ -128,8 +128,8 @@ body {
 }
 
 #palette-ctn > .ctn-row > .content {
-    width: auto;
-    z-index: 2;
+    width: 50%;
+    z-index: 1;
     padding: 10px;
     box-sizing: content-box;
     border: none;
@@ -160,6 +160,8 @@ body {
 #palette-ctn > .ctn-row > .content.compact {
     border-radius: 5px 5px 0 0;
     padding: 5px 8px;
+    text-align: center;
+
 }
 
 #palette {
@@ -182,6 +184,8 @@ body {
     line-height: 0;
     margin: -10px;
     padding: 10px;
+    text-align: center;
+
 }
 
 .content .section.clickable {
@@ -244,7 +248,7 @@ body {
     50%{background-position:100% 19%}
     100%{background-position:0% 82%}
 }
-@keyframes colour-transition { 
+@keyframes colour-transition {
     0%{background-position:0% 82%}
     50%{background-position:100% 19%}
     100%{background-position:0% 82%}
@@ -279,7 +283,7 @@ body {
     border-radius: 10px;
     background-image: linear-gradient(-180deg, rgb(241,241,241) 0%, rgb(227,227,227) 100%);
     font-size: 15px;
-    position: absolute;
+    position: relative;
     top: 0; right: 0; bottom: 0; left: 0;
     color: #000;
     display: flex;
@@ -361,7 +365,7 @@ body.signed-in #placing-modal.shown, body.signed-in #place-timer.shown {
 .pixel-data {
     min-width: 275px;
     max-width: 500px;
-	position: relative;
+    position: relative;
 }
 
 #colour-picker-popover-ctn {
@@ -448,27 +452,27 @@ body.signed-in #placing-modal.shown, body.signed-in #place-timer.shown {
 }
 
 .pixel-data:after, .pixel-data:before, #colour-picker-popover:after, #colour-picker-popover:before {
-	right: 100%;
-	top: 40px;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
+    right: 100%;
+    top: 40px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
 }
 
 .pixel-data:after, #colour-picker-popover:after {
-	border-color: rgba(255, 255, 255, 0);
-	border-right-color: #f8f9fd;
-	border-width: 10px;
-	margin-top: -10px;
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #f8f9fd;
+    border-width: 10px;
+    margin-top: -10px;
 }
 .pixel-data:before, #colour-picker-popover:before {
-	border-color: rgba(211, 211, 211, 0);
-	border-right-color: #f8f9fd;
-	border-width: 11px;
-	margin-top: -11px;
+    border-color: rgba(211, 211, 211, 0);
+    border-right-color: #f8f9fd;
+    border-width: 11px;
+    margin-top: -11px;
 }
 
 #colour-picker-popover:after, #colour-picker-popover:before {
@@ -690,7 +694,7 @@ body.signed-in #placing-modal.shown, body.signed-in #place-timer.shown {
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 5;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -698,39 +702,39 @@ body.signed-in #placing-modal.shown, body.signed-in #place-timer.shown {
 }
 
 @-webkit-keyframes flair {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  50% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
 }
 @keyframes flair {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  50% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
 }
 
 
 #loading .icon {
-	-webkit-animation: flair 0.8s ease-in-out infinite both;
-	-moz-animation: flair 0.8s ease-in-out infinite both;
-	animation: flair 0.8s ease-in-out infinite both;
+    -webkit-animation: flair 0.8s ease-in-out infinite both;
+    -moz-animation: flair 0.8s ease-in-out infinite both;
+    animation: flair 0.8s ease-in-out infinite both;
 }
 
 #loading .text {
@@ -780,7 +784,7 @@ nav.navbar {
 }
 
 .popout-open:not(.popped-out) nav.navbar {
-  box-shadow: -330px 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: -330px 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .popout-open:not(.popped-out) #popout-container {
@@ -1014,7 +1018,7 @@ nav.navbar {
     box-shadow: 0 2px 10px 0 rgba(0,0,0,0.1);
     float: left;
     max-width: 200px;
-    white-space: -moz-pre-wrap;    
+    white-space: -moz-pre-wrap;
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
@@ -1228,7 +1232,7 @@ body .button-ctn, body #popout-container {
 }
 
 #palette-expando > i {
-    color: #4ACDFF;    
+    color: #4ACDFF;
     margin: 0 10px;
     transition: 150ms transform ease-in-out;
 }
@@ -1242,6 +1246,7 @@ body .button-ctn, body #popout-container {
     max-height: 400px;
     overflow-y: auto;
     margin-bottom: 10px;
+    z-index: 0;
 }
 
 .menu-section {
@@ -1269,6 +1274,7 @@ body .button-ctn, body #popout-container {
     margin-bottom: 5px;
     font-size: 13px;
     letter-spacing: 0.5px;
+    z-index: 0;
 }
 
 #warps-ctn .menu-section-content-ctn, #templates-ctn .menu-section-content-ctn, #sprays-ctn .menu-section-content-ctn {
@@ -1542,7 +1548,6 @@ body .button-ctn, body #popout-container {
     background-position: center center;
     background-size: contain;
     background-repeat: no-repeat;
-    z-index: 1;
 }
 
 .spray-info:active {
@@ -1597,6 +1602,8 @@ body .button-ctn, body #popout-container {
     color: #777;
 }
 
+
+
 .menu-section-content.empty {
     display: flex;
     align-items: center;
@@ -1612,7 +1619,7 @@ body .button-ctn, body #popout-container {
 }
 
 #template-images > img {
-    -webkit-backface-visibility: hidden; 
+    -webkit-backface-visibility: hidden;
     transform: translateZ(0);
     position: absolute;
     image-rendering: optimizeSpeed;             /*                     */
