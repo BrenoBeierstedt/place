@@ -1,14 +1,16 @@
 module.exports = {
     "secret": "GETREKT", // <------- CHANGE THIS DONT USE THE DEFAULT YOU'LL GET HACKED AND DIE 100%
-    "database": "mongodb://db:27017/place",
+    "database": "mongodb://localhost:27017/place",
     "port": 3000,
-    "boardSize": 1600,
+    "boardSize": 1444,
+    "boardSizeWidth": 1776,
+    "boardSizeHeight":1444,
     "onlyListenLocal": true,
     "trustProxyDepth": 1, // How many levels of proxy to trust for IP
     "debug": false,
     "googleAnalyticsTrackingID": "", // UA-XXXXXXXX-XX
-    "host": "https://place.outerbone.studio", // the publicly accessible URL of the site
-    "placeTimeout": 60,
+    "host": "https://place.outerbone.com.br", // the publicly accessible URL of the site
+    "placeTimeout": 15,
     'enableChangelogs': true,
     'siteName': 'Rekt',
     // "raven": "",
