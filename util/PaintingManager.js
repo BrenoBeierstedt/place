@@ -9,6 +9,7 @@ const regenerationInterval = 30; // in seconds
 function PaintingManager(app) {
     const imageSize = app.config.boardSize;
     const cachedImagePath = path.resolve(app.dataFolder, "cached-board-image.png");
+    const BgImagePath = path.resolve("./public/img/CANVAS.png");
     const temporaryCachedImagePath = path.resolve(app.dataFolder, "cached-board-image.png.tmp");
     return {
         hasImage: false,
@@ -23,7 +24,7 @@ function PaintingManager(app) {
         isGenerating: false,
 
         createNewImage: function() {
-            return new Jimp(imageSize, imageSize, 0xFFFFFFFF);
+            return new Jimp(BgImagePath);
         },
 
         getStartingImage: async function() {
