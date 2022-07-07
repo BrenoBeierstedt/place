@@ -455,7 +455,7 @@ UserSchema.statics.isTOSAgreementCurrentlyRequired = function() {
 }
 
 UserSchema.methods.canPlaceCustomColours = function() {
-    return this.admin || this.moderator;
+    return true;
 }
 
 UserSchema.methods.canPlaceColour = function(hex, app) {
