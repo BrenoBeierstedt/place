@@ -2,6 +2,7 @@ const jwt = require("jwt-simple");
 const passport = require("passport");
 
 exports.identifyAPIUser = (req, res, next) => {
+    //todo probably needs refactoring (password to wallet)
     require("../util/passport")(passport, req.place);
     if (!req.body.username || !req.body.password) return res.status(400).json({ success: false, error: { message: "A username and password are required.", code: "invalid_parameters" } });
     passport.authenticate("local", { session: false }, function(err, user, info) {

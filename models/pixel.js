@@ -75,7 +75,7 @@ PixelSchema.statics.addPixel = function(colour, x, y, userID, app, callback) {
     x = parseInt(x), y = parseInt(y);
     if(isNaN(x) || isNaN(y)) return callback(null, { message: "Invalid positions provided." });
     // TODO: Get actual position below:
-    if(x < 0 || y < 0 || x >= app.config.boardSize || y >= app.config.boardSize) return callback(null, { message: "Position is out of bounds." });
+    if(x < 0 || y < 0 || x >= app.config.boardSizeHeight || y >= app.config.boardSizeWidth) return callback(null, { message: "Position is out of bounds." });
     this.findOne({
         xPos: x,
         yPos: y

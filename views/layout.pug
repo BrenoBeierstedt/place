@@ -93,7 +93,7 @@ html(lang="en")
             span.icon-bar
             span.icon-bar
           a.navbar-brand(href="https://facesofrekt.xyz", style="margin-right: -5px")
-            img(src="https://assets.dynastic.co/brand/img/icon-46.png", height="20")
+            img(src="/img/ICON-48x48.png", height="20")
           a.navbar-brand(href="/")
             | #{config.siteName}
             if config.debug
@@ -101,7 +101,10 @@ html(lang="en")
         .collapse.navbar-collapse#navbar-collapse
           ul.nav.navbar-nav
             +getViewExtensions("nav_left")
-            +renderNavItem("Home", "/", "home")
+
+            //commented to hide home button from header
+
+            //+renderNavItem("Home", "/", "home")
             +getViewExtensions("nav_inside")
             li.dropdown
               a.dropdown-toggle(data-toggle="dropdown", href="#", role="button", aria-haspopup="true", aria-expanded="false")
