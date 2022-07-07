@@ -1,11 +1,14 @@
 body.fixed-navbar {
     padding-top: 50px;
     min-height: 100%;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 @supports (backdrop-filter:none) or (-webkit-backdrop-filter:none) {
     nav.navbar {
-        background: rgba(255,255,255,0.9)!important;
+
+        background:  linear-gradient(-180deg, rgb(32, 26, 32) 0%, rgb(32, 26, 32) 100%)!important;
         -webkit-backdrop-filter: blur(12px);
         backdrop-filter: blur(12px);
     }
@@ -22,6 +25,8 @@ body.fixed-navbar {
 body {
     overflow: hidden;
     touch-action: none;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 .canvas-container {
@@ -67,23 +72,21 @@ body {
 #zoom-controller {
     transform-origin: center;
     z-index: 1;
-    cursor: grab;
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
+    cursor: url('../img/cursor/cursor_grab.png'), auto;
+
 }
 
 #zoom-controller.grabbing {
-    cursor: grabbing;
-    cursor: -moz-grabbing;
-    cursor: -webkit-grabbing;
+    cursor: url('../img/cursor/cursor_grabbing.png'), auto;
+
 }
 
 #zoom-controller.selected {
-    cursor: no-drop;
+    cursor: url('../img/cursor/no-drop.png'), auto;
 }
 
 #zoom-controller.selected > #camera-controller {
-    cursor: pointer;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
 }
 
 #camera-controller {
@@ -96,6 +99,8 @@ body {
     right: 20px;
     z-index: 2;
     text-align: right;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 #palette-ctn {
@@ -114,7 +119,6 @@ body {
 }
 
 #palette-ctn > .ctn-row {
-    display: block;
     width: 100%;
     display: flex;
     align-items: center;
@@ -135,9 +139,8 @@ body {
     border: none;
     margin: 0 1px;
     pointer-events: all;
-    background-image: linear-gradient(-180deg, rgb(241,241,241) 0%, rgb(227,227,227) 100%);
+    background-image: linear-gradient(-180deg, rgb(32, 26, 32) 0%, rgb(32, 26, 32) 100%);
     box-shadow: 0 -4px 23px -3px rgba(0,0,0,0.22);
-    border-radius: 10px 10px 0 0;
 }
 
 #palette-ctn > .ctn-row > .content {
@@ -158,9 +161,8 @@ body {
 }
 
 #palette-ctn > .ctn-row > .content.compact {
-    border-radius: 5px 5px 0 0;
-    padding: 5px 8px;
     text-align: center;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
 
 }
 
@@ -185,15 +187,16 @@ body {
     margin: -10px;
     padding: 10px;
     text-align: center;
-
+    background-image: linear-gradient(-180deg, rgb(32, 26, 32) 0%, rgb(51, 42, 51) 100%);
 }
 
 .content .section.clickable {
-    cursor: pointer;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
 }
 
 #coordinates > span {
     font-weight: 600;
+    color: #777777;
 }
 
 .colour-option, .palette-separator {
@@ -256,7 +259,7 @@ body {
 
 .colour-option.selected {
     transform: scale(1.3);
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px 0 rgba(231, 187, 187, 0.2);
     z-index: 2;
 }
 
@@ -285,7 +288,7 @@ body {
     font-size: 15px;
     position: relative;
     top: 0; right: 0; bottom: 0; left: 0;
-    color: #000;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -303,7 +306,7 @@ body.signed-in #placing-modal.shown, body.signed-in #place-timer.shown {
 
 @supports (backdrop-filter:none) or (-webkit-backdrop-filter:none) {
     #palette-ctn > .ctn-row > .content, .content .overlay {
-        background-image: linear-gradient(-180deg, rgba(241,241,241,0.8) 0%, rgba(227,227,227,0.8) 100%);
+        background-image: linear-gradient(-180deg, rgb(32, 26, 32) 0%, rgb(40, 33, 40) 100%);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
     }
@@ -324,6 +327,8 @@ body.signed-in #placing-modal.shown, body.signed-in #place-timer.shown {
     pointer-events: none;
     z-index: 1;
     display: none;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 #grid {
@@ -429,7 +434,7 @@ body.signed-in #placing-modal.shown, body.signed-in #place-timer.shown {
     background: none;
 }
 #colour-picker-popover .minicolors .minicolors-grid {
-    cursor: default;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
     margin-right: 4px;
 }
 #colour-picker-popover .minicolors .minicolors-grid {
@@ -578,6 +583,8 @@ body.signed-in #placing-modal.shown, body.signed-in #place-timer.shown {
 
 .pixel-data > .summary > .contents > .pixel-coordinates {
     float: right;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 .pixel-data > .summary > .intro {
@@ -781,6 +788,7 @@ body.signed-in #placing-modal.shown, body.signed-in #place-timer.shown {
 
 nav.navbar {
     transition: 0.25s box-shadow ease-in-out;
+
 }
 
 .popout-open:not(.popped-out) nav.navbar {
@@ -824,7 +832,7 @@ nav.navbar {
 }
 
 #popout-container > .navigation-bar .buttons > span {
-    cursor: pointer;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
     font-size: 20px;
     margin-left: 5px;
     position: relative;
@@ -1232,7 +1240,7 @@ body .button-ctn, body #popout-container {
 }
 
 #palette-expando > i {
-    color: #4ACDFF;
+    color: #ffffff;
     margin: 0 10px;
     transition: 150ms transform ease-in-out;
 }
@@ -1252,6 +1260,8 @@ body .button-ctn, body #popout-container {
 .menu-section {
     padding: 10px 5px;
     position: relative;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 .menu-section, #menu-content-ctn {
@@ -1307,7 +1317,7 @@ body .button-ctn, body #popout-container {
     max-width: 150px;
     position: relative;
     transition: 100ms transform ease-in-out;
-    cursor: pointer;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
 }
 
 .warp-info.template {
@@ -1398,6 +1408,7 @@ body .button-ctn, body #popout-container {
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 1;
+
 }
 
 .warp-info:active {
@@ -1441,7 +1452,7 @@ body .button-ctn, body #popout-container {
 
 .warp-info .warp-coordinates {
     font-size: 11px;
-    color: #777;
+    color: #b9b9b9;
 }
 
 /* Spray CSS*/
@@ -1450,15 +1461,16 @@ body .button-ctn, body #popout-container {
 .spray-info {
     background: rgba(255, 255, 255, 0.4);
     display: inline-block;
-    padding: 10px;
+    padding: 1px;
     border-radius: 4px;
     margin-right: 3px;
-    height: 58px;
+    height: 70px;
     min-width: 58px;
     max-width: 150px;
     position: relative;
     transition: 100ms transform ease-in-out;
-    cursor: pointer;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 .spray-info.template {
@@ -1541,11 +1553,11 @@ body .button-ctn, body #popout-container {
 
 .spray-info > .template-img {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 5px;
+    right: 5px;
     bottom: 10px;
-    left: 10px;
-    background-position: center center;
+    left: 5px;
+    /*background-position: center center;*/
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -1574,10 +1586,12 @@ body .button-ctn, body #popout-container {
 }
 
 .spray-info .spray-title {
-    /*font-weight: 700;*/
+    font-weight: 500;
+    padding: 10%;
     font-size: 12px;
-    display: block;
-    margin-top: 40px;
+    /*display: inherit;*/
+    margin-top: 45px;
+    text-align: center;
 }
 
 .spray-info .spray-img {
@@ -1636,6 +1650,8 @@ body .button-ctn, body #popout-container {
 
 #zoom-slider-ctn > * {
     pointer-events: all;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 .slider {
@@ -1660,6 +1676,8 @@ body .button-ctn, body #popout-container {
     height: 6px!important;
     margin-top: -3px!important;
     border-radius: 0!important;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 #confettiCanvas {

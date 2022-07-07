@@ -38,11 +38,14 @@ exports.getAPIAccount = (req, res, next) => {
 
 exports.getSprayCans = (req, res, next) => {
     // TODO add wallet integration
-    let sprayArr = [
-        {"name":"Spray1", "palette":["#FFFFFF", "#E4E4E4","#E4E4E4", "#888888", "#222222"], "img":"https://cdn.discordapp.com/attachments/935914562140639323/992394749610831963/can-nobg2.png"},
-        {"name":"Spray2", "palette":["#e72222", "#8bc033","#1a20a4", "#632c6c", "#222222"], "img":"https://cdn.discordapp.com/attachments/935914562140639323/992394749610831963/can-nobg2.png"},
-        {"name":"Spray3", "palette":["#e72222", "#e1b010","#111111", "#d96eec", "#222222"], "img":"https://cdn.discordapp.com/attachments/935914562140639323/992394749610831963/can-nobg2.png"}
-    ]
+    let sprayArr =
+        [
+            {"name": "B0WB", "palette":["#000000","#3d2e93","#6440d8","#6c88ff","#7bd5f3","#ffffff"], "img":"https://i.imgur.com/nAaxf3Q.png"},
+            {"name": "F1R3", "palette":["#000000","#7d1b49","#bf0000","#e93100","#ff9000","#ffffff"], "img":"https://i.imgur.com/VeMF0HU.png"},
+            {"name": "B0LT", "palette":["#000000","#915816","#be8420","#ebb70a","#fffc00","#ffffff"], "img":"https://i.imgur.com/lSDomWJ.png"},
+            {"name": "SCH00l", "palette":["#000000","#484848","#707070","#9b9b9b","#d0d0d0","#ffffff"], "img":"https://i.imgur.com/Kl6DWrn.png"},
+            {"name": "SN3K", "palette":["#000000","#0a5d45","#4ab907","#a7ed00","#e5ff05","#ffffff"], "img":"https://i.imgur.com/oEf0tWu.png"}
+        ]
     User.find({userID: req.user.id}).then(() => {
         res.json({success: true, spray: sprayArr});
 

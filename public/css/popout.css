@@ -8,6 +8,8 @@
     margin: 0;
     max-width: none;
     padding: 0!important;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 nav.navbar {
@@ -17,4 +19,6 @@ nav.navbar {
 #popout-container > .navigation-bar .buttons > span.popout-btn {
     top: -1.5px;
     transform: rotate(180deg);
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }

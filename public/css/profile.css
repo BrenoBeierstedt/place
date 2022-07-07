@@ -19,7 +19,7 @@ body {
   position: absolute;
   overflow: hidden;
   margin-bottom: 0;
-  cursor: pointer;
+  cursor: url('../img/cursor/pointer_default.png'), auto;
   transition: 0.1s ease-out height;
   z-index: 20;
 }
