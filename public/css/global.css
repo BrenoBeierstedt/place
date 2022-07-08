@@ -1,9 +1,12 @@
+@font-face { font-family: Electronic; src: url('../fonts/Electronic.ttf'); }
+
+
 html {
     position: relative;
     min-height: 100%;
 }
 body {
-    font-family: "Open Sans", -apple-system-font, BlinkMacSystemFont, "San Francisco", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Electronic", -apple-system-font, BlinkMacSystemFont, serif;
     background: #f8f9fd;
     display: flex;
     min-height: 100vh;
