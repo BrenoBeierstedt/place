@@ -48,7 +48,7 @@ exports.postSignUp = (req, res, next) => {
         sendError({message: errorMsg, code: "validation", intCode: 400});
     }
     function doSignup() {
-        User.register(req.body.username, req.body.password, req.place, function(user, error) {
+        User.register(req.body.username, req.body.wallet, req.place, function(user, error) {
             if (!user) return sendError(error);
             user.recordAccess(req);
             if (req.body.keepSignedIn) req.session.maxAge = 1000 * 60 * 60 * 24 * 7; // keep signed in for 7 days
@@ -60,8 +60,7 @@ exports.postSignUp = (req, res, next) => {
     }
     if (req.user) return sendValidationError("You are already signed in.");
     fs.exists(__dirname + "/../config/community_guidelines.md", (exists) => {
-        if (!req.body.username || !req.body.password || !req.body.passwordverify) return sendValidationError("Please fill out all the fields.")
-        if (req.body.password != req.body.passwordverify) return sendValidationError("The passwords you entered did not match.");
+        if (!req.body.username || !req.body.wallet ) return sendValidationError("Please fill out all the fields.")
         if (!req.body.agreeToGuidelines && exists) return sendValidationError("You must agree to the Terms of Service and community guidelines to use this service.");
         if(req.place.enableCaptcha) {
             req.place.recaptcha.verify(req, (error) => {
