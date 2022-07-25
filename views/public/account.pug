@@ -77,8 +77,8 @@ block content
             if isSelf && !profileUser.isOauth
                 hr
                 h1 My account
-                | #[a.btn.btn-success(data-toggle="modal", id=`${has2FA ? "dis" : "en"}ableTwoFactorAuth`) #{has2FA ? "Dis" : "En"}able Two-Factor Authentication]
-                | #[a.btn.btn-info(data-toggle="modal", data-target="#changePassword") Change Password]
+                //| #[a.btn.btn-success(data-toggle="modal", id=`${has2FA ? "dis" : "en"}ableTwoFactorAuth`) #{has2FA ? "Dis" : "En"}able Two-Factor Authentication]
+                //| #[a.btn.btn-info(data-toggle="modal", data-target="#changePassword") Change Password]
                 | #[a.btn.btn-warning(data-toggle="modal", data-target="#downloadAccount") Download Account Data]
                 | #[a.btn.btn-danger(data-toggle="modal", data-target="#deactivateAccount") Deactivate / Delete Account]
             if user && user.canPerformActionsOnUser(profileUser)
