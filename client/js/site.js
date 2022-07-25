@@ -1,11 +1,11 @@
 $.ajaxSetup({
-	headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
 });
 
 var renderBadge = function(badge, prefersShortText = false) {
-	var badge = $("<span>").addClass(`label badge-label label-${badge.style || "default"}`).text(prefersShortText && badge.shortText ? badge.shortText : badge.text);
-	if(badge.title) badge.attr("title", badge.title);
-	return badge;
+    var badge = $("<span>").addClass(`label badge-label label-${badge.style || "default"}`).text(prefersShortText && badge.shortText ? badge.shortText : badge.text);
+    if(badge.title) badge.attr("title", badge.title);
+    return badge;
 }
 
 var hashHandler = {
@@ -54,6 +54,7 @@ function DialogController(dialog) {
         dialog: dialog,
         currentTab: null,
         isAnimating: false,
+        isMetaConnected: false,
 
         setup: function() {
             var me = this;
@@ -73,6 +74,58 @@ function DialogController(dialog) {
             me.dialog.on("click", "[data-dialog-dismiss]", function() {
                 me.hide();
             })
+//             me.dialog.on("click", "[connect-btn]", function() {
+//                 const accounts =  window.ethereum.request({
+//                     method: 'eth_requestAccounts',
+//                 }).then(accounts =>{
+//
+//                     //todo make this shit pretty
+//                     document.getElementById("inputPasswordRegistration").value = accounts;
+//
+//
+//                     if(document.getElementById("inputPasswordRegistration").value){
+//                         // document.getElementById("signin-sub").click()
+// console.log('asdasaaawwwwwwww')
+//                     }
+//                 })
+//
+//
+//             })
+            me.dialog.on("click", "[reload-btn]", function() {
+
+                const accounts =  window.ethereum.request({
+                    method: 'eth_requestAccounts',
+                }).then(accounts =>{
+
+                    //todo make this shit pretty
+                    document.getElementById("inputWallet").value = accounts;
+
+
+                    if(document.getElementById("inputWallet").value){
+                        document.getElementById("signin-sub").click()
+
+                    }
+                })
+
+
+            })
+            me.dialog.on("click", "[reload-btn2]", function() {
+console.log('aaaaaaaaaaaaaa')
+                const accounts =  window.ethereum.request({
+                    method: 'eth_requestAccounts',
+                }).then(accounts =>{
+
+                    //todo make this shit pretty
+                    document.getElementById("inputWallet").value = accounts;
+
+
+                    if(document.getElementById("inputWallet").value){
+
+                    }
+                })
+
+
+            })
             me.dialog.find("form.form-signin").submit(function(e) {
                 e.preventDefault();
                 var form = $(this);
@@ -89,6 +142,8 @@ function DialogController(dialog) {
                     if(origSubmitButtonText) submitButton.text(origSubmitButtonText);
                     form.data("submitting", false);
                 }).then((data) => {
+
+                    document.getElementById("signin-wallet-img").src = "./../../img/success.png";
                     var hash = hashHandler.getHash();
                     var redirectURL = hash["redirectURL"];
                     const absoluteURLRegex = new RegExp('^(?:[a-z]+:)?(//)?', 'i');
@@ -107,6 +162,7 @@ function DialogController(dialog) {
                     }
                     if(tab == "sign-up" && typeof grecaptcha !== "undefined") grecaptcha.reset();
                     me.shake();
+                    document.getElementById("signin-wallet-img").src = "./../../img/error.png";
                     var error = "An unknown error occurred while attempting to authenticate you.";
                     if(err && err.message) error = err.message;
                     me.showErrorOnTab(tab, error);
@@ -119,7 +175,7 @@ function DialogController(dialog) {
             return this.dialog.parent().hasClass("show");
         },
 
-        shake: function() {                
+        shake: function() {
             this.dialog.addClass("shake");
             setTimeout(() => { this.dialog.removeClass("shake"); }, 500);
         },
@@ -147,6 +203,18 @@ function DialogController(dialog) {
             this.currentTab = tab;
             this.isAnimating = true;
             var hidesSwitchers = this.dialog.find(`.pages > div[tab-name=${tab}]`).hasClass("hides-switchers");
+            const accounts =  window.ethereum.request({
+                method: 'eth_requestAccounts',
+            }).then(accounts =>{
+
+                //todo make this shit pretty
+                document.getElementById("inputPasswordRegistration").value = accounts;
+
+
+                if(document.getElementById("inputPasswordRegistration").value){
+                    document.getElementById("signin-wallet-img").src = "./../../img/success.png";
+                }
+            })
             var applyClasses = () => {
                 this.isAnimating = false;
                 this.dialog.find(".pages > div.active, .switchers > div.active").removeClass("active");
@@ -157,9 +225,9 @@ function DialogController(dialog) {
             if(animated) {
                 const animDuration = 250;
                 var toHide = $(`.pages > div.active, .switchers${hidesSwitchers ? "" : ` > div[tab-name=${tab}]`}`).animate({opacity: 0}, {duration: animDuration, queue: false}).slideUp({duration: animDuration, queue: false, complete: function() {
-                    $(this).attr("style", "");
-                    applyClasses();
-                }});
+                        $(this).attr("style", "");
+                        applyClasses();
+                    }});
                 this.dialog.find(".switchers").removeClass("hidden");
                 $(`.pages > div[tab-name=${tab}], .switchers > div.active`).css({opacity: 1}).slideDown(animDuration, function() {
                     $(this).attr("style", "");
@@ -167,14 +235,32 @@ function DialogController(dialog) {
             } else applyClasses();
         },
 
-        show: function(tab = null) {
-            if(this.isShowing()) return;
-            if(tab) this.switchTab(tab, false);
+        show: function (tab = null) {
+            document.getElementById("walletLoaded").style.display = "none";
+            document.getElementById("signin-wallet-img").src = "./../../img/loading.gif";
+
+            const accounts =  window.ethereum.request({
+                method: 'eth_requestAccounts',
+            }).then(accounts =>{
+                document.getElementById("inputWallet").value = accounts;
+
+
+                if(document.getElementById("inputWallet").value){
+                    document.getElementById("signin-sub").click()
+
+                }
+                document.getElementById("signin-sub").click()
+
+            })
+
+
+            if (this.isShowing()) return;
+            if (tab) this.switchTab(tab, false);
             this.dialog.parent().addClass("show");
             hashHandler.modifyHash({"d": 1});
         },
 
-        hide: function(){ 
+        hide: function(){
             this.dialog.find(".tab-error").remove();
             if(this.currentTab == "2fa-auth") {
                 this.dialog.find(".pages > .active form").trigger("reset");
@@ -190,60 +276,60 @@ function DialogController(dialog) {
 
 const defaultErrorMessage = "An unknown error occurred while trying to make that request.";
 var placeAjax = {
-	ajax: function(data, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
-		return new Promise((resolve, reject) => {
-			function handleError(response) {
-				if(defaultErrorMessage) window.alert(response && response.error ? (response.error.message || defaultErrorMessage) : defaultErrorMessage);
-				reject(response ? response.error : null);
-			}
-			$.ajax(data).done(function(response) {
-				if(!response.success) return handleError(response);
-				resolve(response);
-			}).fail((res) => handleError(typeof res.responseJSON === "undefined" ? null : res.responseJSON)).always(function() {
-				if(typeof alwaysCallback == "function") alwaysCallback();
-			})
-		});
-	},
-	get: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
-		return this.ajax({url: url, data: data, method: "GET"}, defaultErrorMessage, alwaysCallback);
-	},
-	post: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
-		return this.ajax({url: url, data: data, method: "POST"}, defaultErrorMessage, alwaysCallback);
-	},
-	put: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
-		return this.ajax({url: url, data: data, method: "PUT"}, defaultErrorMessage, alwaysCallback);
-	},
-	patch: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
-		return this.ajax({url: url, data: data, method: "PATCH"}, defaultErrorMessage, alwaysCallback);
-	},
-	delete: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
-		return this.ajax({url: url, data: data, method: "DELETE"}, defaultErrorMessage, alwaysCallback);
-	},
-	options: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
-		return this.ajax({url: url, data: data, method: "OPTIONS"}, defaultErrorMessage, alwaysCallback);
-	}
+    ajax: function(data, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
+        return new Promise((resolve, reject) => {
+            function handleError(response) {
+                if(defaultErrorMessage) window.alert(response && response.error ? (response.error.message || defaultErrorMessage) : defaultErrorMessage);
+                reject(response ? response.error : null);
+            }
+            $.ajax(data).done(function(response) {
+                if(!response.success) return handleError(response);
+                resolve(response);
+            }).fail((res) => handleError(typeof res.responseJSON === "undefined" ? null : res.responseJSON)).always(function() {
+                if(typeof alwaysCallback == "function") alwaysCallback();
+            })
+        });
+    },
+    get: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
+        return this.ajax({url: url, data: data, method: "GET"}, defaultErrorMessage, alwaysCallback);
+    },
+    post: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
+        return this.ajax({url: url, data: data, method: "POST"}, defaultErrorMessage, alwaysCallback);
+    },
+    put: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
+        return this.ajax({url: url, data: data, method: "PUT"}, defaultErrorMessage, alwaysCallback);
+    },
+    patch: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
+        return this.ajax({url: url, data: data, method: "PATCH"}, defaultErrorMessage, alwaysCallback);
+    },
+    delete: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
+        return this.ajax({url: url, data: data, method: "DELETE"}, defaultErrorMessage, alwaysCallback);
+    },
+    options: function(url, data = null, defaultErrorMessage = defaultErrorMessage, alwaysCallback = null) {
+        return this.ajax({url: url, data: data, method: "OPTIONS"}, defaultErrorMessage, alwaysCallback);
+    }
 }
 
 // Mobile Safari in standalone mode - from https://gist.github.com/kylebarrow/1042026
 if(("standalone" in window.navigator) && window.navigator.standalone){
 
-	// If you want to prevent remote links in standalone web apps opening Mobile Safari, change 'remotes' to true
-	var noddy, remotes = false;
-	
-	document.addEventListener("click", function(event) {
-		
-		noddy = event.target;
-		
-		// Bubble up until we hit link or top HTML element. Warning: BODY element is not compulsory so better to stop on HTML
-		while(noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
-	        noddy = noddy.parentNode;
-	    }
-		
-		if("href" in noddy && noddy.href.indexOf("http") !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes))
-		{
-			event.preventDefault();
-			document.location.href = noddy.href;
-		}
-	
-	}, false);
+    // If you want to prevent remote links in standalone web apps opening Mobile Safari, change 'remotes' to true
+    var noddy, remotes = false;
+
+    document.addEventListener("click", function(event) {
+
+        noddy = event.target;
+
+        // Bubble up until we hit link or top HTML element. Warning: BODY element is not compulsory so better to stop on HTML
+        while(noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
+            noddy = noddy.parentNode;
+        }
+
+        if("href" in noddy && noddy.href.indexOf("http") !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes))
+        {
+            event.preventDefault();
+            document.location.href = noddy.href;
+        }
+
+    }, false);
 }

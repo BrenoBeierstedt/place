@@ -11,11 +11,12 @@
                 if !config.maintenance || config.maintenance.allowSignups
                     if config.oauth.dynastic && config.oauth.dynastic.enabled
                         hr
-                    form.form-signin(action="/signup")
+                    form.form-signin(action="/signup" id="form-signin")
+                        br
+                        label.sr-only(for="inputPasswordRegistration") Wallet
+                        input.form-control.form-merge-top#inputPasswordRegistration(type="text", autocomplete="wallet", placeholder="Wallet", name="wallet", required, style="pointer-events:none;" )
                         label.sr-only(for="inputUsernameRegistration") Username
-                        input.form-control#inputUsernameRegistration(type="text", autocomplete="username", placeholder="Username", name="username", required, autofocus, autocorrect="off", autocapitalize="off", spellcheck="false")
-                        label.sr-only(for="inputPasswordRegistration") Password
-                        input.form-control.form-merge-top#inputPasswordRegistration(type="text", autocomplete="wallet", placeholder="Wallet", name="wallet", required )
+                        input.form-control#inputUsernameRegistration(type="text", autocomplete="username",style="margin-top:10px", placeholder="Username", name="username", required, autofocus, autocorrect="off", autocapitalize="off", spellcheck="false")
                         //label.sr-only(for="inputPasswordRegistration2") Password (again)
                         //input.form-control.form-merge-bottom#inputPasswordRegistration2(type="password", autocomplete="new-password", placeholder="Password (again)", name="passwordverify", required)
                         if captcha
@@ -54,16 +55,25 @@
                     h1 Welcome back
                     p.subhead Sign in to your account to continue placing and save your stats.
                 if config.maintenance.allowLogins || !config.maintenance
-                    button(wallet-connect-button) Connect Wallet
+                    div(style="text-align:center;", id='walletLoad')
+                        img.icon( id="signin-wallet-img", height="100")
+                        br
+                        br
+                        //button(wallet-connect-button, id="connect-btn") Connect Wallet
+                    div(style="text-align:center;", id='walletLoaded')
                     form.form-signin(action="/signin")
                         label.sr-only(for="inputWallet") Wallet
-                        input.form-control#inputWallet(type="text", autocomplete="wallet", placeholder="Wallet", name="wallet", required)
-                        .checkbox
+                        input.form-control#inputWallet(type="text", autocomplete="wallet", placeholder="Wallet", name="wallet", style="pointer-events:none;")
+                        .checkbox(style='display:none;')
                             label
-                                input#inputKeepSignIn(type="checkbox", name="keepSignedIn", checked)
+                                input#inputKeepSignIn(type="checkbox" , name="keepSignedIn", checked)
                                 span Keep me signed in
-                        .send-section
-                            button.btn.btn-popping(type="submit", id="submit") Sign in
+                        br
+                        div(style="display: flex; justify-content: center; align-items: center;")
+                            button.btn.btn-popping(reload-btn id='reload-btn' style='align:right;') Reload Wallet
+                            br
+                        .send-section(style='display:none;')
+                            button.btn.btn-popping(type="submit", id="signin-sub") Sign in
                             include social-buttons
                         if config.signInBanner
                             br

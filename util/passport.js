@@ -30,17 +30,18 @@ module.exports = function(passport, app) {
         });
     }));
 
-    passport.use(new LocalStrategy(function(username, password, done) {
+    passport.use(new LocalStrategy(function(wallet, password, done) {
+
         function rejectCredentials() {
             done(null, false, { error: { message: "Incorrect username or password provided.", code: "invalid_credentials" } });
         }
-        User.findByUsername(username, function(err, user) {
+        User.findByUsername(wallet, function(err, user) {
             if (err) return done(err, false);
             if (user) {
                 // Don't allow Oauth logins from normal login area.
                 if(user.isOauth === true) return rejectCredentials();
                 if (user.loginError()) return done(null, false, { error: user.loginError() });
-              
+
                 if(user.passwordResetKey) {
                     if(user.passwordResetKey == password) return done(null, user);
                 } else {
