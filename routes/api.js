@@ -16,6 +16,7 @@ const TOTPSetupController = require("../controllers/TOTPSetupController");
 const ChangelogController = require("../controllers/ChangelogController");
 const WarpController = require("../controllers/WarpController");
 const UserDownloadController = require("../controllers/UserDownloadController");
+const CansController = require("../controllers/CansController");
 
 function APIRouter(app) {
     let router = express.Router();
@@ -204,7 +205,7 @@ function APIRouter(app) {
 
     // Spray can Controller
 
-    router.get("/spray_cans", AccountPageController.getSprayCans);
+    router.get("/spray_cans", CansController.getSprayCans);
 
     router.get("/changelog/latest", ChangelogController.getLatestChangelog);
     router.route("/changelog/missed").get([requireUser, ChangelogController.getMissedChangelogs]).post([requireUser, ChangelogController.postMissedChangelogs]).delete([requireUser, ChangelogController.deleteMissedChangelogs]);
@@ -228,7 +229,7 @@ function APIRouter(app) {
     router.get("/admin/toggle_mod", app.adminMiddleware, ModeratorUserController.postAPIToggleModerator);
     router.get("/admin/disable_totp", app.adminMiddleware, ModeratorUserController.postAPIDisableTOTP);
     router.get("/admin/force_pw_reset", app.adminMiddleware, ModeratorUserController.postAPIForcePasswordReset);
-    
+
     // Mod APIs
 
     router.get("/mod/toggle_ban", app.modMiddleware, ModeratorUserController.postAPIToggleBan);
