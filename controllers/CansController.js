@@ -14,7 +14,7 @@ exports.getSprayCans = async (req, res, next) => {
         let arr = []
         for (let i = 0; i < a.assets.length; i++) {
 
-            if (a.assets[i].asset_contract.address == '0x062A771D6cBba642577b9CD095F3827Ee737e232\n') {
+            if (a.assets[i].asset_contract.address == '0x062A771D6cBba642577b9CD095F3827Ee737e232') {
                 const b = await  fetch(a.assets[i].token_metadata,
                     {method: "GET", headers: {Accept: "application/json"}}
                 ).then(response => response.json())
