@@ -7,14 +7,14 @@ exports.getSprayCans = async (req, res, next) => {
     // TODO add wallet integration
     const renderTokensForOwner = async (userWallet) => {
         const a = await fetch(
-            `https://testnets-api.opensea.io/api/v1/assets?owner=${userWallet}&order_direction=desc&offset=0&limit=20&include_orders=false`,
+            `https://testnets-api.opensea.io/api/v1/assets?owner=${userWallet}&order_direction=desc&offset=0&&include_orders=false`,
             {method: "GET", headers: {Accept: "application/json"}}
         ).then(response => response.json())
 
         let arr = []
         for (let i = 0; i < a.assets.length; i++) {
 
-            if (a.assets[i].asset_contract.address == '0x062A771D6cBba642577b9CD095F3827Ee737e232') {
+            if (a.assets[i].asset_contract.address == '0x062a771d6cbba642577b9cd095f3827ee737e232') {
                 const b = await  fetch(a.assets[i].token_metadata,
                     {method: "GET", headers: {Accept: "application/json"}}
                 ).then(response => response.json())
