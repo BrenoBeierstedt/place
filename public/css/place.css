@@ -132,7 +132,7 @@ body {
 }
 
 #palette-ctn > .ctn-row > .content {
-    width: 50%;
+    min-width: 30%;
     z-index: 2;
     padding: 10px;
     box-sizing: content-box;

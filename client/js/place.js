@@ -1083,8 +1083,10 @@ var place = {
                 popover.find("#pixel-data-time").attr("title", new Date(data.pixel.modified).toLocaleString());
                 popover.find("#pixel-data-x").text(x.toLocaleString());
                 popover.find("#pixel-data-y").text(y.toLocaleString());
-                popover.find("#pixel-colour-code").text(`#${data.pixel.colour.toUpperCase()}`);
-                popover.find("#pixel-colour-preview").css("background-color", `#${data.pixel.colour}`);
+                popover.find("#spray_name").text(data.pixel.spray_name);
+                // document.getElementById("spray_name").value = 'data.pixel.spray_name';
+                document.getElementById("spray_img").src = data.pixel.spray_img;
+
                 if(data.pixel.colour.toLowerCase() == "ffffff") popover.find("#pixel-colour-preview").addClass("is-white");
                 else popover.find("#pixel-colour-preview").removeClass("is-white");
                 popover.find("#pixel-use-colour-btn").attr("data-represented-colour", data.pixel.colour);
@@ -1122,7 +1124,7 @@ var place = {
             this.changePlacingModalVisibility(true);
             var hex = this.getCurrentColourHex();
             this.placing = true;
-            placeAjax.post("/api/place", { x: x, y: y, hex: hex }, "An error occurred while trying to place your pixel.", () => {
+            placeAjax.post("/api/place", { x: x, y: y, hex: hex, spray_name: this.selectedSpray.name, metadata: this.selectedSpray.metadata, spray_img: this.selectedSpray.img }, "An error occurred while trying to place your pixel.", () => {
                 this.changePlacingModalVisibility(false);
                 this.placing = false;
             }).then((data) => {
@@ -1290,8 +1292,6 @@ var place = {
         if(!this.isSignedIn()) return;
         placeAjax.get("/api/spray_cans", null, null).then((response) => {
             this.sprays = response.spray;
-            console.log(response)
-
             this.layoutSprays();
         }).catch((err) => {
             console.error("Couldn't load sprays: " + err);
@@ -1320,7 +1320,7 @@ var place = {
             this.sprays.forEach(
                 (spray) => {
                     var sprayCtn =    getSprayInfo().attr("data-spray-id", spray.name).appendTo(sprayInfoContainer);
-                    sprayCtn.click(()=>{ this.setupColours(spray.palette)});
+                    sprayCtn.click(()=>{ this.setupColours(spray.palette); this.selectedSpray=spray;});
 
                     $("<div>").addClass("template-img").css("background-image", `url(${spray.img})`).appendTo(sprayCtn);
                     $("<div>").addClass("spray-title").text(spray.name).appendTo(sprayCtn);

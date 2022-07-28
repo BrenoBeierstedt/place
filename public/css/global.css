@@ -137,6 +137,8 @@ body:not([data-user-is-mod=true]) .actions-ctn, body:not([data-user-is-admin=tru
     padding: 5px;
     margin-left: -3px;
     margin-right: -5px;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 /* User Display Block */
@@ -481,6 +483,8 @@ body:not([data-user-is-mod=true]) .actions-ctn, body:not([data-user-is-admin=tru
     padding: 12px 18px;
     margin-bottom: 11px;
     outline: none;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 .dialog input.form-merge-top, .dialog input.form-merge-middle {
@@ -510,6 +514,8 @@ body:not([data-user-is-mod=true]) .actions-ctn, body:not([data-user-is-admin=tru
 
 .dialog input:focus, .dialog .bootstrap-select.btn-group.open .dropdown-toggle {
     box-shadow: 0 2px 7px 0 rgba(20,20,20,0.1);
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 .dialog input:focus, .dialog .bootstrap-select .dropdown-toggle:focus {
@@ -730,11 +736,15 @@ body:not([data-user-is-mod=true]) .actions-ctn, body:not([data-user-is-admin=tru
 
 nav.navbar:not(.navbar-inverse) {
     background: #fff;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 nav.navbar {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border: none;
+    cursor: url('../img/cursor/pointer_default.png'), auto;
+
 }
 
 nav.navbar.navbar-inverse {

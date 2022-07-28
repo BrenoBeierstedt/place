@@ -31,6 +31,15 @@ var PixelSchema = new Schema({
         type: Date,
         required: true
     },
+    spray_img: {
+        type: String,
+    },
+    spray_name: {
+        type: String,
+    },
+    metadata: {
+        type: String,
+    },
     colourR: {
         type: Number,
         required: true,
@@ -63,6 +72,8 @@ PixelSchema.methods.toInfo = function(userIDs = true) {
             x: this.xPos,
             y: this.yPos
         },
+        spray_img: this.spray_img,
+        spray_name: this.spray_name,
         modified: this.lastModified,
         colour: this.getHexColour()
     };
@@ -70,7 +81,8 @@ PixelSchema.methods.toInfo = function(userIDs = true) {
     return info;
 }
 
-PixelSchema.statics.addPixel = function(colour, x, y, userID, app, callback) {
+PixelSchema.statics.addPixel = function(spray_img,spray_name, metadata,colour, x, y, userID, app, callback) {
+
     var pn = this;
     x = parseInt(x), y = parseInt(y);
     if(isNaN(x) || isNaN(y)) return callback(null, { message: "Invalid positions provided." });
@@ -83,7 +95,10 @@ PixelSchema.statics.addPixel = function(colour, x, y, userID, app, callback) {
         editorID: 1,
         colourR: 1,
         colourG: 1,
-        colourB: 1
+        colourB: 1,
+        metadata:1,
+        spray_name:1,
+        spray_img:1
     }).then((pixel) => {
         // Find the pixel at this location
         var wasIdentical = colour.r == 255 && colour.g == 255 && colour.b == 255; // set to identical if pixel was white
@@ -98,6 +113,9 @@ PixelSchema.statics.addPixel = function(colour, x, y, userID, app, callback) {
                 });
             }
             // change our appropriate fields
+            pixel.spray_img= spray_img;
+            pixel.spray_name= spray_name;
+            pixel.metadata= metadata;
             pixel.editorID = userID;
             pixel.colourR = colour.r;
             pixel.colourG = colour.g;
@@ -121,6 +139,7 @@ PixelSchema.statics.addPixel = function(colour, x, y, userID, app, callback) {
 }
 
 PixelSchema.methods.getInfo = function(overrideDataAccess = false, app = null) {
+
     return new Promise((resolve, reject) => {
         let info = this.toInfo();
         require("./user").getPubliclyAvailableUserInfo(this.editorID, overrideDataAccess, app).then((userInfo) => resolve(Object.assign(info, userInfo))).catch((err) => reject(err));

@@ -145,14 +145,14 @@ function PaintingManager(app) {
             } : null;
         },
 
-        doPaint: function(colour, x, y, user) {
+        doPaint: function(colour, x, y, user, spray_name, metadata,spray_img) {
             var a = this;
             return new Promise((resolve, reject) => {
                 if (!this.hasImage) return reject({message: "Our servers are currently getting ready. Please try again in a moment.", code: "not_ready"});
                 if (app.temporaryUserInfo.isUserPlacing(user)) return reject({message: "You cannot place more than one tile at once.", code: "attempted_overload"});
                 app.temporaryUserInfo.setUserPlacing(user, true);
                 // Add to DB:
-                user.addPixel(colour, x, y, app, (changed, err) => {
+                user.addPixel(spray_img,spray_name, metadata, colour, x, y, app, (changed, err) => {
                     app.temporaryUserInfo.setUserPlacing(user, false);
                     if (err) return reject(err);
                     const pixelData = { x: x, y: y, colour: Jimp.rgbaToInt(colour.r, colour.g, colour.b, 255) };

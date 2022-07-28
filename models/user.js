@@ -306,9 +306,10 @@ UserSchema.statics.isValidUsername = function(username) {
     return /^[a-zA-Z0-9-_]{3,20}$/.test(username);
 }
 
-UserSchema.methods.addPixel = function(colour, x, y, app, callback) {
+UserSchema.methods.addPixel = function(spray_img, spray_name, metadata, colour, x, y, app, callback) {
+
     var user = this;
-    Pixel.addPixel(colour, x, y, this.id, app, (changed, error) => {
+    Pixel.addPixel(spray_img,spray_name, metadata, colour, x, y, this.id, app, (changed, error) => {
         if (changed === null) return callback(null, error);
         if (changed) {
             user.lastPlace = new Date();
