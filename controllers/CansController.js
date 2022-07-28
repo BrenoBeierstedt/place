@@ -21,7 +21,7 @@ exports.getSprayCans = async (req, res, next) => {
 
                 let data ={
                     "name": b.name,
-                    "palette": b.Pallete,
+                    "palette": b.pallete,
                     "img": b.image,
                     "metadata": a.assets[i].token_metadata
                 }
