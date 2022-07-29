@@ -110,15 +110,10 @@ function DialogController(dialog) {
 
             })
             me.dialog.on("click", "[reload-btn2]", function() {
-console.log('aaaaaaaaaaaaaa')
                 const accounts =  window.ethereum.request({
                     method: 'eth_requestAccounts',
                 }).then(accounts =>{
-
-                    //todo make this shit pretty
                     document.getElementById("inputWallet").value = accounts;
-
-
                     if(document.getElementById("inputWallet").value){
 
                     }
@@ -236,6 +231,14 @@ console.log('aaaaaaaaaaaaaa')
         },
 
         show: function (tab = null) {
+
+
+
+            if (this.isShowing()) return;
+            if (tab) this.switchTab(tab, false);
+            this.dialog.parent().addClass("show");
+            hashHandler.modifyHash({"d": 1});
+
             document.getElementById("walletLoaded").style.display = "none";
             document.getElementById("signin-wallet-img").src = "./../../img/loading.gif";
 
@@ -252,12 +255,6 @@ console.log('aaaaaaaaaaaaaa')
                 document.getElementById("signin-sub").click()
 
             })
-
-
-            if (this.isShowing()) return;
-            if (tab) this.switchTab(tab, false);
-            this.dialog.parent().addClass("show");
-            hashHandler.modifyHash({"d": 1});
         },
 
         hide: function(){

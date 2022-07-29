@@ -14,7 +14,10 @@ services:
       DATABASE: "mongodb://db/place"
       PORT: 3000
       ONLY_LISTEN_LOCAL: "false"
-
+      ETHER_APIKEY: "KN5TDKANT3C16NIUVWITUN1REB3SCWWCS4"
+      CONTRACTADDRESS: "0x01e690c5d3cc89cea84f2a3c2ccb38410ce2992d"
+      IPFS_URI: "https://opensea.mypinata.cloud/ipfs/"
+      IPFS_HASH: "QmYhVWUyJPkMuS5GwF7uxha73GVnK1EAxRmEa8doQmwZi6"
 
   db:
     image: mongo

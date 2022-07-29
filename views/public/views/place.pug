@@ -13,7 +13,7 @@
                 .popout-control.control.btn.btn-default(data-tab-name="leaderboard" style="color:#333; background-color:#777777; border-color:#6c6a6a; border-radius:0"): i.fa.fa-trophy.fa-fw
                 if user
                     //.popout-control.control.btn.btn-default(data-tab-name="achievements"): i.fa.fa-star.fa-fw
-                .popout-control.control.btn.btn-default(data-tab-name="active-users" style="color:#333; background-color:#777777; border-color:#6c6a6a; border-radius:0"): i.fa.fa-users.fa-fw
+                //.popout-control.control.btn.btn-default(data-tab-name="active-users" style="color:#333; background-color:#777777; border-color:#6c6a6a; border-radius:0"): i.fa.fa-users.fa-fw
             .control-btns
                 .control.btn.btn-success#grid-button(style="color:#333; background-color:#777777; border-color:#6c6a6a; border-radius:0")
                 .btn-group(role="group", aria-label="Zoom" style="color:#333; background-color:#777777; border-color:#6c6a6a; border-radius:0")
@@ -46,15 +46,15 @@
             .ctn-row
                 .content#palette
                     #menu-content-ctn
-                        .menu-section
-                            span.menu-heading Templates
-                            #templates-ctn Loading templates…
+                        //.menu-section
+                        //    span.menu-heading Templates
+                        //    #templates-ctn Loading templates…
                         .menu-section
                             span.menu-heading Warps
                             #warps-ctn Loading warps…
                         .menu-section
                             span.menu-heading Cans
-                            #sprays-ctn Loading cans…
+                            #sprays-ctn(style="color:#f9f9f977") Loading cans from your wallet…
                             //span.spray-popup-body
                     #palette-content-ctn
                         .overlay#sign-in-reminder

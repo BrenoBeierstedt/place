@@ -559,12 +559,14 @@ var place = {
             //     $("body").toggleClass("picker-showing");
             //     if($("body").hasClass("picker-showing")) $("#colour-picker-hex-value").focus();
             // }).append("<div class=\"colour-option transparent\"></div>").appendTo(contentContainer);
+
+
             var elem = $("<div>").addClass("colour-option custom").attr("id", "customChosenColourOption").attr("data-colour", 1).hide().appendTo(contentContainer);
             this.colourPaletteOptionElements.push(elem[0]);
             if(this.canPlaceCustomColours) $("<div>").addClass("palette-separator").appendTo(contentContainer);
 
             this.colours.forEach((colour, index) => {
-                var elem = $("<div>").addClass("colour-option" + (colour.toLowerCase() == "#ffffff" ? " is-white" : "")).css("background-color", colour).attr("data-colour", index + 2);
+                var elem = $("<div>").addClass("colour-option" + (colour.toLowerCase() == "#cbcbc9" ? " is-white" : "")).css("background-color", colour).attr("data-colour", index + 2);
                 elem.appendTo(contentContainer);
                 this.colourPaletteOptionElements.push(elem[0]);
             });
@@ -1289,7 +1291,8 @@ var place = {
     // Spray Content
 
     loadSprays: function() {
-        if(!this.isSignedIn()) return;
+        if (!this.isSignedIn()) return;
+        if(!this.sprays){
         placeAjax.get("/api/spray_cans", null, null).then((response) => {
             this.sprays = response.spray;
             this.layoutSprays();
@@ -1298,6 +1301,7 @@ var place = {
             this.sprays = null;
             this.layoutSprays();
         });
+    }
     },
 
     layoutSprays: function() {
