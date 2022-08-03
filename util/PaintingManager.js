@@ -3,14 +3,28 @@ const Pixel = require("../models/pixel");
 const ActionLogger = require("../util/ActionLogger");
 const fs = require("fs");
 const path = require("path");
-
 const regenerationInterval = 30; // in seconds
+
+const dateFile = () =>{
+    var d = new Date
+    var a =[d.getMonth()+1,
+            d.getDate(),
+            d.getFullYear()].join('-')+' '+
+        [d.getHours(),
+            d.getMinutes(),
+            d.getSeconds()].join(':');
+
+    return a
+
+}
 
 function PaintingManager(app) {
     const imageSize = app.config.boardSize;
     const cachedImagePath = path.resolve(app.dataFolder, "cached-board-image.png");
     const BgImagePath = path.resolve("./public/img/CANVAS.png");
     const temporaryCachedImagePath = path.resolve(app.dataFolder, "cached-board-image.png.tmp");
+    const rektTlPath  = path.resolve(app.rektTl);
+    const rektImagePath = path.resolve(app.rektFolder, "board.png");
     return {
         hasImage: false,
         imageHasChanged: false,
@@ -112,12 +126,26 @@ function PaintingManager(app) {
                             fs.writeFile(temporaryCachedImagePath, buffer, (err) => {
                                 if (err) return app.logger.error("Painting Manager", "Couldn't save cached board image, got error:", err);
                                 if (fs.existsSync(cachedImagePath)) fs.unlinkSync(cachedImagePath);
-                                fs.rename(temporaryCachedImagePath, cachedImagePath, (err) => { 
+                                fs.rename(temporaryCachedImagePath, cachedImagePath, (err) => {
                                     if (err) return app.logger.error("Painting Manager", "Couldn't move cached board image into place, got error:", err)
                                     app.logger.info("Painting Manager", "Saved cached board image successfully!");
                                 })
                             });
+
+
                         }
+                        fs.writeFile(rektImagePath, buffer, err => {
+                            if (err) {
+                                return app.logger.error("Painting Manager", "Couldn't move cached board image rekt city, got error:", err)
+                            }
+                            app.logger.info("Painting Manager", "Saved cached board on rekt city image successfully!");
+                        });
+                        fs.writeFile( `${rektTlPath}/${dateFile()}.png`, buffer, err => {
+                            if (err) {
+                                return app.logger.error("Painting Manager", "Couldn't move cached board image rekt city, got error:", err)
+                            }
+                            app.logger.info("Painting Manager", "Saved cached board on rekt city image successfully!");
+                        });
                         a.waitingForImages.forEach((callback) => callback(null, buffer));
                         a.waitingForImages = [];
                     }).catch((err) => {

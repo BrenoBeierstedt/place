@@ -56,6 +56,15 @@ app.moduleManager = new ModuleManager(app);
 app.moduleManager.loadAll();
 
 // Create .place-data folder
+app.rektFolder = path.resolve(__dirname, "public/rekt");
+if (!fs.existsSync(app.rektFolder)) fs.mkdirSync(app.rektFolder);
+
+// Create timeline folder
+app.rektTl = path.resolve(__dirname, "timeline");
+if (!fs.existsSync(app.rektTl)) fs.mkdirSync(app.rektTl);
+
+// Create rekt folder
+
 app.dataFolder = path.resolve(__dirname, ".place-data");
 if (!fs.existsSync(app.dataFolder)) fs.mkdirSync(app.dataFolder);
 

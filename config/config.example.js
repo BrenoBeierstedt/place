@@ -12,7 +12,7 @@ module.exports = {
     "host": "https://bathroom.outerbone.com.br", // the publicly accessible URL of the site
     "placeTimeout": 15,
     'enableChangelogs': true,
-    'siteName': 'Rektcity - Bathroom',
+    'siteName': 'Rekt City - Bathroom',
     // "raven": "",
     // "publicRaven": "",
     // "bugsnag": "",
