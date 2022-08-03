@@ -1,6 +1,7 @@
 *.log
 # node/js
 node_modules/
+timeline/
 config/config.js
 place.paw
 public/js/build
