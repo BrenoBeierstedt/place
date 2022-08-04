@@ -555,6 +555,8 @@ var place = {
         this.colourPaletteOptionElements = [];
         if(this.colours) {
             overlay.hide();
+
+
             // if(this.canPlaceCustomColours) $("<div>").addClass("colour-option rainbow").attr("id", "customColourChooserOption").click(function() {
             //     $("body").toggleClass("picker-showing");
             //     if($("body").hasClass("picker-showing")) $("#colour-picker-hex-value").focus();
@@ -927,7 +929,9 @@ var place = {
     doTimer: function(data) {
         this.changePlaceTimerVisibility(true);
         if(data.canPlace) return this.changePlaceTimerVisibility(false);
-        this.deselectColour();
+
+        //this.deselectColour();  COMENTADO POR ROVARIS 04/08
+
         this.unlockTime = (new Date().getTime() / 1000) + data.seconds;
         this.fullUnlockTime = data.seconds;
         this.secondTimer = setInterval(() => this.checkSecondsTimer(), 1000);
