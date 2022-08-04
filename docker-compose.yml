@@ -1,17 +1,19 @@
-version: "3"
+version: "3.6"
 services:
   api:
     restart: always
+    container_name: api
     build: .
     ports:
       - "3000:3000"
-    depends_on:
-      - "db"
-    links:
-      - "db"
+    networks:
+      - rekt
+    volumes:
+      - "./timeline/:/usr/src/app/timeline:rw"
+      - "./rektimage/:/usr/src/app/public/rekt:rw"
     environment:
       NODE_ENV: "production"
-      DATABASE: "mongodb://db/place"
+      DATABASE: "mongodb://db:27017/place"
       PORT: 3000
       ONLY_LISTEN_LOCAL: "false"
       ETHER_APIKEY: "KN5TDKANT3C16NIUVWITUN1REB3SCWWCS4"
@@ -19,10 +21,7 @@ services:
       IPFS_URI: "https://opensea.mypinata.cloud/ipfs/"
       IPFS_HASH: "QmYhVWUyJPkMuS5GwF7uxha73GVnK1EAxRmEa8doQmwZi6"
 
-  db:
-    image: mongo
-    restart: always
-    volumes:
-      - "./mongo-volume:/data/db"
-    ports:
-      - "27017:27017"
+networks:
+  rekt:
+    external:
+      name: rekt-net
