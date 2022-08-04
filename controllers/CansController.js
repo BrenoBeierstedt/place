@@ -7,7 +7,7 @@ exports.getSprayCans = async (req, res, next) => {
 
     const renderTokensForOwner = async (userWallet) => {
 
-        const wallet = "0xa13f7B45d505a541d72e9A82Da304B84c119d5Fb"
+        const wallet = userWallet
 
         let a = await fetch(
             `https://api.etherscan.io/api?`+ new URLSearchParams({
